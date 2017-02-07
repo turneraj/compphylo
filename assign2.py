@@ -6,7 +6,7 @@ My tasks for Assignment 2.
 Created by A.J. Turner on January 29, 2017
 Copyright 2017 A.J. Turner. All rights reserved.
 Help obtained from stackoverflow postings and S. Shakya. Collaboration with
-phart for some problems.
+phart and delias for some problems.
 
 """
 # import time is used when I want to time some of the functions
@@ -80,7 +80,7 @@ list of events and probabilities need to be the same length. Collaboration\
     # events to sample
     probEv = np.array([0.5, 0.75, 0.2, 0.1])
     # list of probabilities for catching each type of fish in fishes list
-    print("Based on the probability of catching each type of fish, when you\
+    print("(2a: 5) Based on the probability of catching each type of fish, when you\
  try to net a fish from a tank 10 times, with replacement,\
  you'll get", np.random.choice(fishes, 10, list(probEv)))
 
@@ -88,7 +88,8 @@ list of events and probabilities need to be the same length. Collaboration\
 def likelihood(n, k, pCurr, diff):
     """ calculating the likelihood for our starting parameter, pCurr, and then
 comparing that value to likelihoods for two parameters - one above (pUp = pCurr
-+ diff) and one below (pDown = pCurr - diff) our starting parameter value."""
++ diff) and one below (pDown = pCurr - diff) our starting parameter value.
+Help provided by Subir Shakya. Could not figure out the diff > precision."""
 
     pUp = pCurr + diff
     # print("pUP is", pUp)
@@ -114,7 +115,7 @@ def optimP(n, k, pCurr, diff, p=-1):
     """ Looping to check and update p values. p of -1 is used so that the while
  loop will always initiate...since you can't have a negative probability."""
 
-    while pCurr != p:
+    while pCurr != p:  #
         p = pCurr
         like, pCurr = likelihood(n, k, pCurr, diff)
     return like, p
@@ -131,11 +132,11 @@ for 100 datasets."""
     simK = []
     for num in range(100):
         simK.append(random.randrange(1, n + 1))
-    # print(simK)  # checking to see if I have 100 values for k
-    for k in simK:
+    print(len(simK))  # checking to see if I have 100 values for k
+    #for k in simK:
         # calculate the max likelihood parameter of p using def likelihood
         # and def optimP with each value for k
-
+        # calculate likelihood ratios comparing myP to ML estimates
 
 
 def main():
@@ -155,7 +156,7 @@ coefficient takes 0.0031s to compute the binomial coefficient and my function\
  200 and the value of n was 2704.\n")
     print("(2a: 4) PMF was found to be", Pmf(n, k, p), "when p was", p, "\n")
     discDist()
-    print(optimP(n, k, pCurr, diff))
+    print("\n(2b) Answer given as likelihood, p", optimP(n, k, pCurr, diff))
     """plist = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     llist = []
     for i in plist:
