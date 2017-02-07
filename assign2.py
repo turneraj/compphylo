@@ -106,7 +106,7 @@ comparing that value to likelihoods for two parameters - one above (pUp = pCurr
         if likepUp > likepDown:  # if like pUp is greater than likepDown
             pCurr = pUp  # pCurr will be pUp b/c pUp should have the max like
         else:
-            pCurr = pDown  # if pDown has bed like, then set pCurr = pDown
+            pCurr = pDown  # if pDown has best like, then set pCurr = pDown
     return maxLike, pCurr
 
 
@@ -134,8 +134,8 @@ for 100 datasets."""
     # print(simK)  # checking to see if I have 100 values for k
     for k in simK:
         # calculate the max likelihood parameter of p using def likelihood
-        # and def optimP
-        
+        # and def optimP with each value for k
+
 
 
 def main():
