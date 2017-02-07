@@ -121,19 +121,20 @@ def optimP(n, k, pCurr, diff, p=-1):
     return like, p
 
 
-def mySim(n, diff):
+def mySim(n, p, diff):
     """ function that will randomly draw a value for k (number of successes)\
-for 100 datasets."""
+for 100 datasets. Help was provided by Subir Shakya to simulate data."""
 
-    # start with p
-    myP = 0.4
-
+    # start with p  # p is passed from my main functon
     # generate a lit of values for k (100 values) to get 100 datasets
+    sampleBox = []
     simK = []
-    for num in range(100):
-        simK.append(random.randrange(1, n + 1))
-    print(len(simK))  # checking to see if I have 100 values for k
-    #for k in simK:
+    for num in range(0, 100):
+        for i in range(0, n + 1):
+            sampleBox.append("Yes", "No")
+            simK.append(sampleBox.count("Yes")/len(sampleBox)
+    print(simK)  # trying to see if i simulated datasets to get 100 K
+    #for k in simK:  # need to have a for loop to pick on k value at a time
         # calculate the max likelihood parameter of p using def likelihood
         # and def optimP with each value for k
         # calculate likelihood ratios comparing myP to ML estimates
@@ -165,7 +166,7 @@ coefficient takes 0.0031s to compute the binomial coefficient and my function\
     # print(llist)
     plt.plot(plist, llist)
     plt.show()  # visualizing likelihood distribution to check my function"""
-    mySim(n, diff)
+    # mySim(n, diff)
 
 if __name__ == '__main__':
     main()
