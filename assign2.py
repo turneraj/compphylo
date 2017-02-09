@@ -144,19 +144,19 @@ for 100 datasets. Help was provided by Subir Shakya to simulate data."""
 
 def ratioLike(n, pCurr, diff, p, pmf):
     """function to calculate likelihood ratios of p for each simulation from\
- mySim above"""
+ mySim above. After obtaining those LRs, obtain the 95th position. This\
+  value is the LR raito cutoff that ensures the probability of seeing a\
+  a LR score this big or greater is less than or equal to 5%."""
 
     Likes = mySim(n, pCurr, diff)
     ratios = []  # empty list to store my likelihood ratios calc'd below
-    for likelihood in Likes[0::1]:
-        # print(likelihood)  # checking to see if i'm iterating through list
-        for like in likelihood[0::1]:
+    for likelihood in Likes:
+        ratio = (likelihood[0])/pmf  # checking to see if i'm iterating through list
             # print(like)  # checking to see if just getting the max like value
-            ratio = like/pmf
-            ratios.append(ratio)
-    print("\n (2c)", sorted(ratios))
+        ratios.append(ratio)
+    return sorted(ratios)[94]
     # returning list of like ratios from small to large
-    # need to ge the likelihood cutoff, which should be value less than 1 ???
+    # to get 95th percentil value, get 95th position in list of LRs
 
 
 def main():
@@ -187,7 +187,8 @@ coefficient takes 0.0031s to compute the binomial coefficient and my function\
     plt.plot(plist, llist)
     plt.show()  # visualizing likelihood distribution to check my function"""
     mySim(n, pCurr, diff)
-    ratioLike(n, pCurr, diff, p, pmf)
+    print("\n(2c) Likelihood ratio cutoff is:\
+", ratioLike(n, pCurr, diff, p, pmf))
 
 if __name__ == '__main__':
     main()
