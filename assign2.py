@@ -10,10 +10,11 @@ phart and delias for some problems.
 
 """
 # import time is used when I want to time some of the functions
-import scipy
+# import scipy
 import numpy as np
-import matplotlib.pyplot as plt
-import random
+#import matplotlib.pyplot as plt
+from random import randint
+
 
 def myFact(minim, maxim):
     """ factorial-like function that uses a range (minimum and maximum)"""
@@ -67,7 +68,8 @@ Theorem 3.3.5 was used to calculate pmf."""
 
     biCo = simpBi(k, n)
     # print(biCo)  # to see if passing my function worked.
-    return biCo*(pow(p, k))*(pow(1 - p, n - k))  # putting everything into form
+    pmf = biCo*(pow(p, k))*(pow(1 - p, n - k))
+    return pmf  # putting everything into form
 
 
 def discDist():
@@ -113,7 +115,9 @@ Help provided by Subir Shakya. Could not figure out the diff > precision."""
 
 def optimP(n, k, pCurr, diff, p=-1):
     """ Looping to check and update p values. p of -1 is used so that the while
- loop will always initiate...since you can't have a negative probability."""
+ loop will always initiate...since you can't have a negative probability.\
+ Subir helped me with setting a default value for p so I won't need to pass\
+ it as an argument in another function that uses this function."""
 
     while pCurr != p:  #
         p = pCurr
@@ -121,23 +125,38 @@ def optimP(n, k, pCurr, diff, p=-1):
     return like, p
 
 
-def mySim(n, p, diff):
+def mySim(n, pCurr, diff):
     """ function that will randomly draw a value for k (number of successes)\
 for 100 datasets. Help was provided by Subir Shakya to simulate data."""
 
     # start with p  # p is passed from my main functon
-    # generate a lit of values for k (100 values) to get 100 datasets
-    sampleBox = []
-    simK = []
-    for num in range(0, 100):
-        for i in range(0, n + 1):
-            sampleBox.append("Yes", "No")
-            simK.append(sampleBox.count("Yes")/len(sampleBox)
-    print(simK)  # trying to see if i simulated datasets to get 100 K
-    #for k in simK:  # need to have a for loop to pick on k value at a time
-        # calculate the max likelihood parameter of p using def likelihood
-        # and def optimP with each value for k
-        # calculate likelihood ratios comparing myP to ML estimates
+    # generate a list of values for k (100 values) to get 100 datasets
+    sampleBox = [randint(1, n - 1) for k in range(0, 100)]
+    # b/c of randit, the range has be be n-1 so that k can't equal n
+    Likes = []  # empty list to store likelikhoods
+    for k in sampleBox:  # iterating through list of values for k
+        # print(k)  # done to check and see that I'm getting 100 values for k
+        myLike = optimP(n, k, pCurr, diff)  # calc max like (ML) for datasets
+        Likes.append(myLike)  # appending ML's and their p together in a list
+    # print(type(Likes))  # check to see type of Likes to insure it's a list
+    return Likes
+
+
+def ratioLike(n, pCurr, diff, p, pmf):
+    """function to calculate likelihood ratios of p for each simulation from\
+ mySim above"""
+
+    Likes = mySim(n, pCurr, diff)
+    ratios = []  # empty list to store my likelihood ratios calc'd below
+    for likelihood in Likes[0::1]:
+        # print(likelihood)  # checking to see if i'm iterating through list
+        for like in likelihood[0::1]:
+            # print(like)  # checking to see if just getting the max like value
+            ratio = like/pmf
+            ratios.append(ratio)
+    print("\n (2c)", sorted(ratios))
+    # returning list of like ratios from small to large
+    # need to ge the likelihood cutoff, which should be value less than 1 ???
 
 
 def main():
@@ -158,6 +177,7 @@ coefficient takes 0.0031s to compute the binomial coefficient and my function\
     print("(2a: 4) PMF was found to be", Pmf(n, k, p), "when p was", p, "\n")
     discDist()
     print("\n(2b) Answer given as likelihood, p", optimP(n, k, pCurr, diff))
+    pmf = Pmf(n, k, p)
     """plist = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     llist = []
     for i in plist:
@@ -166,7 +186,8 @@ coefficient takes 0.0031s to compute the binomial coefficient and my function\
     # print(llist)
     plt.plot(plist, llist)
     plt.show()  # visualizing likelihood distribution to check my function"""
-    # mySim(n, diff)
+    mySim(n, pCurr, diff)
+    ratioLike(n, pCurr, diff, p, pmf)
 
 if __name__ == '__main__':
     main()
