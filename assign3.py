@@ -41,19 +41,25 @@ def posterior(k, n, p):
     return posterior
 
 
-def myDraw(n, p):
+def myDraw():
     """Drawing samples from a proposal distribution"""
 
-    sample = np.random.binomial(n, p, 1)
+
+    numReps = 100
+    numValues = 100
+    uniScale = 10
+    #sample = np.random.binomial(n, p, 1)  # old code that isn't correct
+    p_vals = uniform.rvs(size=numValues,loc=0,scale=uniScale)
     # print(type(sample))
-    return sample
+    return p_vals
 
 
-def chain(n, k, p, s):
+def chain(n, k, p, p_vals):
     """Function to run a Markov chain with the proposal distribution"""
     pCurr = p
-    pNew = s
-    print (pNew)
+    for value in p_vals:
+        pNew = value
+    print ("You're new proposed p_val is", pNew)
     r = posterior(k, n, pNew)/posterior(k, n, pCurr)  # new parameter to propose
     #print(r)
     #print(pNew)
@@ -63,7 +69,7 @@ def chain(n, k, p, s):
     else:
             pCurr = pNew
     #Not sure how to code it...but I need to create a way to sometimes accept the step down (when r is less than 1)
-    # to do this, I could somehow add and if statement that draws a random float value between 0 and 1 and compares that value to what I have for r (ratio. if the random value is greater than the value for r, accept the proposed move. if the random value is less than the value for r, reject the proposed move and make another copy of the pCurr in the chain.)
+    # to do this, I could somehow add an if statement that draws a random float value between 0 and 1 and compares that value to what I have for r (ratio. if the random value is greater than the value for r, accept the proposed move. if the random value is less than the value for r, reject the proposed move and make another copy of the pCurr in the chain.)
         
     #print (pCurr, pNew)    
 
@@ -81,7 +87,7 @@ def traceIt(s):
 """
 
 def histos(s):
-    """attempting to plost histograms of parameter values, priors, liklihoods,and posteriors...but I need to generate more samples to plot"""
+    """attempting to plost histograms of parameter values, priors, liklihoods,and posteriors...but I need to generate more samples to plot and make sure i have a p-val on the x and the likelihood of that value on the y"""
 
     count, bins, ignored = plt.hist(s, 10, normed=True)
     plt.show()
@@ -98,11 +104,11 @@ def main():
     print("The likelihood of my proposal", like(k, n, p,testingPrior=False))
     print("The prior is", prior(p))
     print("The posterior density estimate is", posterior(k, n, p))
-    s = myDraw(n,p)
-    #print(s)
-    chain(n, k, p, s)
+    p_vals = myDraw()
+    # print(p_vals)  # checking to see if myDraw is working properly
+    chain(n, k, p, p_vals)
     #traceIt(s)
-    histos(s)
+    histos(p_vals)
     
     print("1. If the proposal distribution is too large, then the markov chain could simply move around the tail end of the target distribution and never get good mixing because you would have low rates of acceptance when proposing new parameters. If the proposal distribution is super tiny, then you will accept proposed parameters frequently and take a long time to mix and converge at the target distributon. ")
 
