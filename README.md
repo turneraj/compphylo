@@ -3,3 +3,5 @@ Assignments for the Spring 2017 Computational Phylogenetics class
 
 RevBayes Assignment has a markdown file
 -----------------------------------------
+
+![example image](male_sailfin.png)
