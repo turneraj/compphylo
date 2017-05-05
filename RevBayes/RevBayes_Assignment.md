@@ -26,3 +26,7 @@ Concordant topologies were obtained for the phylogenetic relationships generated
 
 **Figure 3. Phylogenetic relationships of Heroini cichlids - Run 2.**
 
+Furture Direction:
+-------------------
+Due to time constraints, two independent chains only ran for ~97,000 generations. In the future, this would be increased to 5 million generations per run. Additionally, to make the analysis run quicker, I will use a GTR+G substitution model instead of GTR+G+I. 
+
