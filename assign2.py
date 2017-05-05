@@ -80,8 +80,9 @@ list of events and probabilities need to be the same length. Collaboration\
 
     fishes = np.array(["guppy", "molly", "swordtail", "platy"])
     # events to sample
-    probEv = np.array([0.5, 0.75, 0.2, 0.1])
+    probEv = np.array([0.5, 0.25, 0.1, 0.05])
     # list of probabilities for catching each type of fish in fishes list
+    # probabilities must add up to 1
     print("(2a: 5) Based on the probability of catching each type of fish, when you\
  try to net a fish from a tank 10 times, with replacement,\
  you'll get", np.random.choice(fishes, 10, list(probEv)))
@@ -160,10 +161,10 @@ def ratioLike(n, pCurr, diff, p, pmf):
 
 
 def main():
-    k = minim = 4
-    n = maxim = 20
-    p = 0.3
-    diff = 0.001
+    k = minim = 2
+    n = maxim = 10
+    p = 0.9
+    diff = 0.02
     pCurr = p
     print("(2a: 1) The factorial of", maxim, "from range", maxim, "to\
 ", minim, "is", myFact(minim, maxim))
