@@ -19,7 +19,10 @@ Concordant topologies were obtained for the phylogenetic relationships generated
 
 
 ![example image](cich95_run_1.tre.png)
+
 **Figure 2. Phyologenetic relationships of Heroini cichlids - Run 1.**
+
 ![example image](cich95_run_2.tre.png)
+
 **Figure 3. Phyologenetic relationships of Heroini cichlids - Run 2.**
 
