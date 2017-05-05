@@ -15,16 +15,16 @@ Following analyses, Tracer was used to visually examine traces and ESS values fo
 
 Results:
 ---------
-Concordant topologies were obtained for the phylogenetic relationships generated from the two independent runs mentioned above. 
+Concordant topologies were obtained for the phylogenetic relationships generated from the two independent runs mentioned above. Maximum a-posterori
 
 
 ![example image](cich95_run_1.tre.png)
 
-**Figure 2. Phylogenetic relationships of Heroini cichlids - Run 1.**
+**Figure 2. Phylogenetic relationships (maximum a-posteriori tree) of Heroini cichlids - Run 1.**
 
 ![example image](cich95_run_2.tre.png)
 
-**Figure 3. Phylogenetic relationships of Heroini cichlids - Run 2.**
+**Figure 3. Phylogenetic relationships (maximum a-posteriori tree) of Heroini cichlids - Run 2.**
 
 Furture Direction:
 -------------------
